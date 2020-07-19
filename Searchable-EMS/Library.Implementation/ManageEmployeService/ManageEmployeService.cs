@@ -32,9 +32,9 @@ namespace Library.Implementation
             this._manageEmployeRepository = manageEmployeRepository;
             this._genderRepository = genderRepository;
         }
-        public ResponseModel<List<ManageEmployeeListViewModel>> UploadFile(HttpPostedFile hpf)
+        public ResponseModel<List<EmployeeExportListViewModel>> UploadFile(HttpPostedFile hpf)
         {
-            ResponseModel<List<ManageEmployeeListViewModel>> response = new ResponseModel<List<ManageEmployeeListViewModel>>();
+            ResponseModel<List<EmployeeExportListViewModel>> response = new ResponseModel<List<EmployeeExportListViewModel>>();
             string fileName = hpf.FileName;
             string fileExtension = Path.GetExtension(hpf.FileName);
             var allowedExtensions = new[] { ".xlsx", ".xls", ".csv" };
@@ -46,10 +46,17 @@ namespace Library.Implementation
                 IEnumerable<DataRow> data = excelData.getData();
                 if (data != null && data.Any())
                 {
-                    response = ValidateFileData(data);
+                    ResponseModel<List<ManageEmployeeListViewModel>> responseExcel = ValidateFileData(data);
                     if (response.Validation)
                     {
-                        InsertBulkEmployeeData(response.Entity);
+                        int[] ids = InsertBulkEmployeeData(responseExcel.Entity);
+                        response.Entity = GetEmployeeListByIds(string.Join(",", ids));
+
+                        response.ExcelValidationError = responseExcel.ExcelValidationError;
+                        response.SkipedRow = responseExcel.SkipedRow;
+                        response.Validation = responseExcel.Validation;
+                        response.ValidationError = responseExcel.ValidationError;
+                        response.ExcelValidationError = responseExcel.ExcelValidationError;
                     }
                     response.Status = true;
                 }
@@ -248,10 +255,6 @@ namespace Library.Implementation
             return response;
         }
 
-
-
-
-
         public bool IsValidDate(string value, string[] dateFormats)
         {
             DateTime tempDate;
@@ -291,7 +294,7 @@ namespace Library.Implementation
         }
 
 
-        public bool InsertBulkEmployeeData(List<ManageEmployeeListViewModel> model)
+        public int[] InsertBulkEmployeeData(List<ManageEmployeeListViewModel> model)
         {
             List<Employee> employee = Mapper.Map<List<ManageEmployeeListViewModel>, List<Employee>>(model);
             employee.ForEach(x => x.CreatedBy = new Guid());
@@ -300,7 +303,8 @@ namespace Library.Implementation
             employee.ForEach(x => x.ImportedDate = DateTime.UtcNow);
             _manageEmployeRepository.AddRange(employee);
             _manageEmployeRepository.SaveChanges();
-            return true;
+            int[] Ids = employee.Select(x => x.Id).ToArray();
+            return Ids;
         }
 
 

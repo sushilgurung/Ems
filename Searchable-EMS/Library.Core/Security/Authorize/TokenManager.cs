@@ -13,7 +13,7 @@ namespace Library.Core.Security
     public class TokenManager
     {
         public const string SecretKey = "JIOBLi6eVjBpvGtWBgJzjWd2QH0sOn5tI8rIFXSHKijXWEt/3J2jFYL79DQ1vKu+EtTYgYkwTluFRDdtF41yAQ==";
-        public static string GenerateToken(UserAuthViewModel model, int expire_in_Minutes = 30)
+        public static string GenerateToken(UserAuthViewModel model, int expire_in_Minutes = 60)
         {
             byte[] symmetric_Key = Convert.FromBase64String(SecretKey);
             var token_Handler = new JwtSecurityTokenHandler();

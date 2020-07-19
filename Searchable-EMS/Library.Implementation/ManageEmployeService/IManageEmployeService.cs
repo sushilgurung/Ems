@@ -10,7 +10,7 @@ namespace Library.Implementation
 {
     public interface IManageEmployeService
     {
-        ResponseModel<List<ManageEmployeeListViewModel>> UploadFile(HttpPostedFile hpf);
+        ResponseModel<List<EmployeeExportListViewModel>> UploadFile(HttpPostedFile hpf);
         ResponseModel<string> UploadImage(HttpPostedFile hpf);
         ResponseModel<List<EmployeeListViewModel>> GetEmployeeList(EmployeeViewModelFilter filter);
         ResponseModel<List<GenderListViewModel>> GetGenderList();

@@ -28,9 +28,9 @@ namespace Web.Api
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ResponseModel<List<ManageEmployeeListViewModel>> UploadFile()
+        public ResponseModel<List<EmployeeExportListViewModel>> UploadFile()
         {
-            ResponseModel<List<ManageEmployeeListViewModel>> response = new ResponseModel<List<ManageEmployeeListViewModel>>();
+            ResponseModel<List<EmployeeExportListViewModel>> response = new ResponseModel<List<EmployeeExportListViewModel>>();
             var allowedExtensions = new[] { ".xlsx", ".csv" };
             HttpFileCollection hfc = HttpContext.Current.Request.Files;
             HttpPostedFile hpf = hfc[0];

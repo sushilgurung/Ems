@@ -249,6 +249,7 @@
 							$('#skip-List').html('X rows [' + response.SkipedRow + '] were skipped since they did not have data');
 						}
 						$("#modal-default").modal();
+						EmployeeManage.GetEmployeeList(EmployeeManage.config.offset, EmployeeManage.config.viewPerPage, 0);
 					} else {
 						let error = '';
 						$.each(response.ExcelValidationError, function (index, item) {
@@ -291,23 +292,28 @@
 			BindEmployeeList: function (data) {
 				let response = data;
 				let html = '';
-				$.each(response.Entity, function (index, item) {
-					response.TotalRows = item.RowTotal;
+				if (parseInt(response.Entity.length) > 0) {
+					$.each(response.Entity, function (index, item) {
+						response.TotalRows = item.RowTotal;
+						html += '<tr>';
+						html += '<td><input type="checkbox" id="emp-' + item.Id + '" name="ChkEmployee" data-id="' + item.Id + '" value="' + item.Id + '"></td>';
+						html += '<td>' + item.FullName + '</td>';
+						html += '<td>' + item.DateOfBirthView + '</td>';
+						html += '<td>' + item.Gender + '</td>';
+						html += '<td>' + item.Salary + '</td>';
+						html += '<td>' + item.Designation + '</td>';
+
+						html += '<td>';
+						html += EmployeeManage.BindAction(item);
+						html += '</td>';
+						html += '</tr>';
+					});
+				} else {
 					html += '<tr>';
-					html += '<td><input type="checkbox" id="emp-' + item.Id + '" name="ChkEmployee" data-id="' + item.Id + '" value="' + item.Id + '"></td>';
-					html += '<td>' + item.FullName + '</td>';
-					html += '<td>' + item.DateOfBirthView + '</td>';
-					html += '<td>' + item.Gender + '</td>';
-					html += '<td>' + item.Salary + '</td>';
-					html += '<td>' + item.Designation + '</td>';
-
-					html += '<td>';
-					html += EmployeeManage.BindAction(item);
-					html += '</td>';
+					html += '<td>No Records</td>';
 					html += '</tr>';
-				});
+				}
 				$('#tblEmployee').html(html);
-
 				if (parseInt(response.TotalRows) <= parseInt(EmployeeManage.config.viewPerPage)) {
 					$('#pagination').hide();
 				}
@@ -329,6 +335,7 @@
 					sortReset: true,
 					sortRestart: true
 				});
+
 			},
 
 			BindAction: function (item) {
@@ -442,7 +449,7 @@
 				if (ids.length > 0) {
 					let exportIds = ids.join(',');
 
-			
+
 
 					//console.log(exportIds);
 					let link = document.createElement("a");
