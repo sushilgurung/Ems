@@ -1,0 +1,52 @@
+﻿@using Library.Model
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLoginPage.cshtml";
+}
+
+<div class="login-page">
+    <div class="form-wrap-content">
+        <a class="logo" href="#"><img src="https://www.searchabledesign.com/img/searchable-logo.png"></a>
+        <div class="header-text-wrap">
+
+        </div>
+        <div class="header-2text-wrap">
+            Employee Management System
+        </div>
+        <div class="form-login-wrap">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "needs-validation" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <span class="block input-icon input-icon-right">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "UserName" })
+                        <i class="ace-icon fa fa-user" id="id-userName"></i>
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        <div class="invalid-tooltip">
+                            UserName
+                        </div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <span class="block input-icon input-icon-right">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                        <i class="ace-icon fa fa-lock"></i>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        <div class="invalid-tooltip">
+                            Password
+                        </div>
+                    </span>
+                </div>
+                <div class="form-out-check">
+                    @*@Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input", id = "exampleCheck1" })*@
+                    <label class="form-check-label" for="exampleCheck1">username: superadmin and password:1234</label>
+                </div>
+                <button type="submit" class="btn tap-btn"> <i class="fa fa-key"></i>LogIn</button>
+            }
+        </div>
+    </div>
+</div>
+<!--login-site-->

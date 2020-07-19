@@ -1,0 +1,13 @@
+﻿
+<header class="header">
+    <nav class="nav">
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "active" : "")" href="@Url.Action("","Home")">Home</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "HowItWorks" ? "active" : "")" href="@Url.Action("","HowItWorks")">How it works</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "News" ? "active" : "")" href="#">News & updates</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "" ? "active" : "")" href="#">Leaderboards</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "Schedule" ? "active" : "")" href="@Url.Action("","Schedule")">Schedule</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "" ? "active" : "")" href="#">Special Events</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "" ? "active" : "")" href="@Url.Action("","HowItWorks")">Prizes</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "FAQ" ? "active" : "")" href="@Url.Action("","FAQ")">FAQs</a>
+    </nav>
+</header>

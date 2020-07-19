@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{49863B8B-8926-4505-8849-469499FD646A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Library.DataAcessLayer</RootNamespace>
+    <AssemblyName>Library.DataAcessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMapper\AutoMapperConfig.cs" />
+    <Compile Include="AutoMapper\Mappings\ManageEmployeeProfile.cs" />
+    <Compile Include="Context\DatabaseContext.cs" />
+    <Compile Include="DataInitializer\DataInitializer.cs" />
+    <Compile Include="Entities\ActivityLog.cs" />
+    <Compile Include="Entities\Employee.cs" />
+    <Compile Include="Entities\Gender.cs" />
+    <Compile Include="Entities\Log.cs" />
+    <Compile Include="Entities\LoginActivities.cs" />
+    <Compile Include="Entities\Roles.cs" />
+    <Compile Include="Entities\Sales.cs" />
+    <Compile Include="Entities\SuspendedIP.cs" />
+    <Compile Include="Entities\SystemSettings.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserInRoles.cs" />
+    <Compile Include="Helper\IUnitOfWork.cs" />
+    <Compile Include="Helper\UnitOfWork.cs" />
+    <Compile Include="Migrations\202007171441371_create-table.cs" />
+    <Compile Include="Migrations\202007171441371_create-table.designer.cs">
+      <DependentUpon>202007171441371_create-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007181212202_alter-table.cs" />
+    <Compile Include="Migrations\202007181212202_alter-table.designer.cs">
+      <DependentUpon>202007181212202_alter-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007181930242_update.cs" />
+    <Compile Include="Migrations\202007181930242_update.designer.cs">
+      <DependentUpon>202007181930242_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007190548317_IsImported.cs" />
+    <Compile Include="Migrations\202007190548317_IsImported.designer.cs">
+      <DependentUpon>202007190548317_IsImported.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007191614282_storeprocedure.cs" />
+    <Compile Include="Migrations\202007191614282_storeprocedure.Designer.cs">
+      <DependentUpon>202007191614282_storeprocedure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ActivityLogRepository\ActivityLogRepository.cs" />
+    <Compile Include="Repository\ActivityLogRepository\IActivityLogRepository.cs" />
+    <Compile Include="Repository\GenderRepository\GenderRepository.cs" />
+    <Compile Include="Repository\GenderRepository\IGenderRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\ManageEmployeRepository\IManageEmployeRepository.cs" />
+    <Compile Include="Repository\ManageEmployeRepository\ManageEmployeRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\Transaction\DatabaseTransaction.cs" />
+    <Compile Include="Repository\Transaction\IDatabaseTransaction.cs" />
+    <Compile Include="Repository\UserRepository\IUserRepository.cs" />
+    <Compile Include="Repository\UserRepository\UserRepository.cs" />
+    <Compile Include="SQLHandler\SQLHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\" />
+    <Folder Include="Repository\Interface\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Core\Library.Core.csproj">
+      <Project>{aa74dea5-fa09-4ab5-915b-cbbbac86486f}</Project>
+      <Name>Library.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Model\Library.Model.csproj">
+      <Project>{6c292a64-27bd-4e55-947c-8d351cc72693}</Project>
+      <Name>Library.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202007171441371_create-table.resx">
+      <DependentUpon>202007171441371_create-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007181212202_alter-table.resx">
+      <DependentUpon>202007181212202_alter-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007181930242_update.resx">
+      <DependentUpon>202007181930242_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007190548317_IsImported.resx">
+      <DependentUpon>202007190548317_IsImported.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007191614282_storeprocedure.resx">
+      <DependentUpon>202007191614282_storeprocedure.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

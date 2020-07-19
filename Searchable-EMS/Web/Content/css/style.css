@@ -1,0 +1,130 @@
+
+@import url: (href='https://fonts.googleapis.com/css?family=Poppins':400,500,700);
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Open Sans', arial;
+}
+
+* {
+    box-sizing: border /*Start of Header Class*/ -box;
+    padding: 0;
+    margin: 0;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.logo {
+    margin-left: 30%;
+    position: relative;
+}
+
+    .logo img {
+        height: 45px;
+        margin-bottom: 2%;
+    }
+
+.header-text-wrap {
+    color: #880000;
+    text-align: center;
+    font-size: 17px;
+}
+
+.header-2text-wrap {
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+/*Login*/
+.form-wrap-content {
+    background-color: #ECF0F5;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 7%;
+    padding: 30px 30px 55px;
+    -webkit-box-shadow: 0 0 2px 1px rgba(0,0,0,.12);
+    box-shadow: 0 0 2px 1px rgba(0,0,0,.12);
+    border-bottom: 1px solid rgba(50,50,50,.33);
+}
+
+.form-group {
+    margin-bottom: 2rem !important;
+    position: relative;
+    margin-top: 1.5rem;
+}
+
+.invalid-tooltip {
+    background: transparent;
+    color: #d43b3b !important;
+    padding-top: 3px;
+    border: 0px;
+}
+
+.btn-success {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.form-control {
+    padding: 10px !important;
+}
+
+.block.input-icon.input-icon-right {
+    position: relative;
+    display: -webkit-inline-box;
+    width: 100%;
+}
+
+.ace-icon {
+    cursor: pointer;
+    right: 7px;
+    position: absolute;
+    line-height: 40px;
+}
+
+    .ace-icon:before {
+        font-size: 20px;
+        color: #8b9096;
+    }
+
+.tap-btn {
+    float: right;
+    color: #fff;
+    background: #037555;
+}
+
+.btn.tap-btn:hover {
+    background: #0a906a;
+}
+
+.form-out-check {
+    display: inline-flex;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form-check-input {
+    margin-left: 0px;
+}
+
+.form-check-label {
+    padding-left: 20px;
+}
+
+.was-validated .form-check-input:valid ~ .form-check-label {
+    color: #000;
+}
+
+.fa.fa-key {
+    position: relative;
+    margin-right: 5px;
+}
+/*Login*/

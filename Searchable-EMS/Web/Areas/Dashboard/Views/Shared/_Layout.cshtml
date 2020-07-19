@@ -1,0 +1,84 @@
+﻿@using Library.Core
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        Inventory |  @ViewBag.Title
+    </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+
+    <!--AdminLTE-->
+    <!-- Bootstrap 3.3.7 -->
+    <link href="~/Areas/Dashboard/Content/themes/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="~/Areas/Dashboard/Content/themes/components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Ionicons -->
+    <link href="~/Areas/Dashboard/Content/themes/components/Ionicons/css/ionicons.min.css" rel="stylesheet" />
+    <!-- Pace style -->
+    <link href="~/Areas/Dashboard/Content/themes/plugins/pace/pace.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="~/Areas/Dashboard/Content/themes/dist/css/AdminLTE.min.css" rel="stylesheet" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+    <link href="~/Areas/Dashboard/Content/themes/dist/css/skins/_all-skins.min.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+    <!-- overlayScrollbars -->
+    <link href="~/Areas/Dashboard/Content/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" rel="stylesheet" />
+
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="icon" href="~/Content/images/fav-logo-32x32.png" sizes="32x32">
+    <link rel="icon" href="~/Content/images/fav-logo-192x192.png" sizes="192x192">
+
+    <link href="~/Areas/Dashboard/Content/css/custom.css" rel="stylesheet" />
+    <script>var rootUrl = '@(new Uri(Request.Url, Url.Content("~")))'; var token='@(Utility.Token())'</script>
+    @RenderSection("Styles", required: false)
+</head>
+<body class="hold-transition skin-blue fixed sidebar-mini">
+    <div class="wrapper">
+        <!-- Navbar -->
+        @{ Html.RenderPartial("MainNav"); }
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        @{ Html.RenderPartial("SideNav"); }
+        <!-- /.aside Main Sidebar Container -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+            <!-- /.content-wrapper -->
+        </div>
+        <!-- /.content-wrapper -->
+        @{ Html.RenderPartial("Footer"); }
+
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery 3 -->
+    <script src="~/Areas/Dashboard/Content/themes/components/jquery/dist/jquery.min.js"></script>
+    <script src="~/Areas/Dashboard/Content/js/json2.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/Areas/Dashboard/Content/themes/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="~/Areas/Dashboard/Content/themes/components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/Areas/Dashboard/Content/themes/components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Areas/Dashboard/Content/themes/dist/js/adminlte.min.js"></script>
+    <!-- PACE -->
+    <script src="~/Areas/Dashboard/Content/themes/components/PACE/pace.min.js"></script>
+    <script src="~/Areas/Dashboard/Content/js/common.js"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

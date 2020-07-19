@@ -1,0 +1,327 @@
+﻿@using Library.Model
+@model List<GenderListViewModel>
+@{
+    ViewBag.Title = "Manage Employees";
+}
+
+<div class="content-header">
+    <div class="row mb-2">
+        <div class="col-sm-12">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Manage Employees</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="btn btn-default btn-file">
+                    <i class="fa fa-paperclip"></i> Upload File
+                    <input type="file" id="file-uploads" class="" />
+                </div>
+            </div>
+            <a href="javascript:void(0)" id="btnCreate" class="btn btn-primary btn-block margin-bottom">Create Employee</a>
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Export data</h3>
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active">
+                            <a id="btn-downloads-xls" href="javascript:void(0)">
+                                <i class="fa fa-file-excel-o"></i> Excel
+                            </a>
+                        </li>
+                        <li><a id="btn-downloads-csv" href="javascript:void(0)"><i class="fa fa-file-excel-o"></i> Csv</a></li>
+                        <li><a id="btn-downloads-pdf" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i> Pdf</a></li>
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Sample File</h3>
+
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li>
+                            <a href="@(new Uri(Request.Url, Url.Content("~"))+"File/Sample/Employee-Excel-File.xlsx")" download>
+                                <i class="fa fa-file-excel-o"></i>Sample ExcelFile
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+
+
+        <div class="col-md-9">
+            <div class="search-form">
+                <div class="input-group input-group-sm hidden-xs">
+                    <input type="text" name="" id="txtSalaryRangeFrom" class="form-control" placeholder="SalaryRangeFrom">
+                    -
+                    <input type="text" name="" id="txtSalaryRangeTo" class="form-control" placeholder="SalaryRangeTo">
+                </div>
+                <div class="form-group form-datepicker">
+                    <label for="txtFromDate" class="form-label">Birthday Range</label>
+                    <input type="text" id="txtFromDate" placeholder="From" name="txtFromDate" class="form-control" />
+                    <span>-</span>
+                    <input type="text" id="txtToDate" name="txtToDate" placeholder="To" class="form-control" />
+                </div>
+                <div class="input-group input-group-sm hidden-xs">
+                    <select id="ddlGenderSearch" name="GenderSearch" class="form-control select2bs4" style="width: 100%;">
+                        <option value="0">All</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group form-datepicker">
+                    <label for="txtFromDate" class="form-label">Import Range</label>
+                    <input type="text" id="txtFromImportDate" placeholder="From" name="txtFromImportDate" class="form-control" />
+                    <span>-</span>
+                    <input type="text" id="txtToImportDate" name="txtToImportDate" placeholder="To" class="form-control" />
+                </div>
+
+
+            </div>
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Employee</h3>
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
+                            <input type="text" name="table_search" id="txtSearchText" class="form-control pull-right" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button type="submit" id="btn-Search" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="mailbox-controls">
+                        <!-- Check all button -->
+                        <!-- /.btn-group -->
+                        <button type="button" id="btnPrint" class="btn btn-default btn-sm"><i class="fa fa-print"></i></button>
+                        <div class="pull-right">
+                            <select id="ddlPage" class="form-control">
+                                <option selected="selected" value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                            </select>
+
+                            <!-- /.btn-group -->
+                        </div>
+                        <!-- /.pull-right -->
+                    </div>
+                    <table id="table-employee" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="chk-selectAll" name="">   #
+                                </th>
+                                <th>Full Name</th>
+                                <th>Date of Birth</th>
+                                <th>Gender</th>
+                                <th>Salary</th>
+                                <th>Designation</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblEmployee">
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <div id="pagination" class="Pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+<!-- modal -->
+<div class="modal fade in" id="modal-default" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Sucess</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>FullName</th>
+                                    <th>Date of birth</th>
+                                    <th>Gender</th>
+                                    <th>Salary</th>
+                                    <th>Designation</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sucess-List">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="skip-List" class="col-xs-12 table-responsive">
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /modal -->
+<!-- modal -->
+<div class="modal fade in" id="modal-validation-error" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 table-responsive">
+                        <table class="table table-striped">
+                            <tbody id="error-List">
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /modal -->
+<!-- modal -->
+<div class="modal fade in" id="modal-add-update" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-mange">
+                    <div class="form-group">
+                        <label for="">Full Name*</label>
+                        <input type="text" id="txtFullName" name="FullName" class="form-control" placeholder="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Date of Birth*</label>
+                        <input type="text" id="txtDateOfBirth" name="DateOfBirth" class="form-control" placeholder="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Gender*</label>
+                        <select id="ddlGender" name="Gender" class="form-control select2bs4" style="width: 100%;">
+                            @foreach (var item in Model)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Salary*</label>
+                        <input type="text" id="txtSalary" name="Salary" class="form-control" placeholder="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Desgination*</label>
+                        <input type="text" id="txtDesgination" name="Desgination" class="form-control" placeholder="" />
+                    </div>
+                    <div class="form-group">
+                        <div class="btn btn-default btn-file">
+                            <i class="fa fa-paperclip"></i> Upload Image
+                            <input type="file" id="image-uploads" class="" />
+                        </div>
+                        <p class="help-block">Max. 4MB</p>
+                        <p id="img-error-msg" class="help-block" style="color:red; display:none;"></p>
+                    </div>
+                    <div id="image-block" class="form-group" style="display:none;">
+                        <div class="attachment-block clearfix">
+                            <img class="attachment-img" id="image-Attachment" src="https://adminlte.io/themes/AdminLTE/dist/img/photo1.png" alt="Attachment Image">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCancel" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" id="btnSubmit" class="btn btn-info pull-right">Submit</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /modal -->
+
+
+@section Styles{
+    <link href="~/Areas/Dashboard/Content/DateTimePicker/jquery.datetimepicker.css" rel="stylesheet" />
+}
+@section Scripts {
+    <script src="~/Areas/Dashboard/Content/js/jquery.tablesorter.min.js"></script>
+    <script src="~/Areas/Dashboard/Content/js/jquery.tablesorter.widgets.min.js"></script>
+    <script src="~/Areas/Dashboard/Content/js/printThis.js"></script>
+    <script src="~/Areas/Dashboard/Content/js/common.js"></script>
+    <script src="~/Areas/Dashboard/Content/js/jquery.validate.js"></script>
+    <script src="~/Areas/Dashboard/Content/js/jquery.pagination.js"></script>
+    <script src="~/Areas/Dashboard/Content/DateTimePicker/jquery.datetimepicker.js"></script>
+    <script src="~/Areas/Dashboard/Content/themes/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="~/Areas/Dashboard/Content/js/AllowNumber.js"></script>
+    <script src="~/Areas/Dashboard/js/ManageEmployess/ManageEmployess.js"></script>
+    <script type="text/javascript">
+
+        //<![CDATA[
+        $(function () {
+            $(this).ManageEmployess({
+
+            });
+        });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            //<![CDATA[
+    </script>
+}
+
