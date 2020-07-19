@@ -35,36 +35,48 @@ namespace Library.Implementation
         public ResponseModel<List<EmployeeExportListViewModel>> UploadFile(HttpPostedFile hpf)
         {
             ResponseModel<List<EmployeeExportListViewModel>> response = new ResponseModel<List<EmployeeExportListViewModel>>();
-            string fileName = hpf.FileName;
-            string fileExtension = Path.GetExtension(hpf.FileName);
-            var allowedExtensions = new[] { ".xlsx", ".xls", ".csv" };
-            int fileSize = hpf.ContentLength;
-            if (allowedExtensions.Contains(fileExtension))
+            string path = string.Empty;
+            try
             {
-                string path = SaveFile(hpf);
-                ExcelDataReaderHelpers excelData = new ExcelDataReaderHelpers(path);
-                IEnumerable<DataRow> data = excelData.getData();
-                if (data != null && data.Any())
+                string fileName = hpf.FileName;
+                string fileExtension = Path.GetExtension(hpf.FileName);
+                var allowedExtensions = new[] { ".xlsx", ".xls", ".csv" };
+                int fileSize = hpf.ContentLength;
+                if (allowedExtensions.Contains(fileExtension))
                 {
-                    ResponseModel<List<ManageEmployeeListViewModel>> responseExcel = ValidateFileData(data);
-                    if (response.Validation)
+                    path = SaveFile(hpf);
+                    ExcelDataReaderHelpers excelData = new ExcelDataReaderHelpers(path);
+                    IEnumerable<DataRow> data = excelData.getData();
+                    if (data != null && data.Any())
                     {
-                        int[] ids = InsertBulkEmployeeData(responseExcel.Entity);
-                        response.Entity = GetEmployeeListByIds(string.Join(",", ids));
+                        ResponseModel<List<ManageEmployeeListViewModel>> responseExcel = ValidateFileData(data);
+                        if (response.Validation)
+                        {
+                            int[] ids = InsertBulkEmployeeData(responseExcel.Entity);
+                            response.Entity = GetEmployeeListByIds(string.Join(",", ids));
 
-                        response.ExcelValidationError = responseExcel.ExcelValidationError;
-                        response.SkipedRow = responseExcel.SkipedRow;
-                        response.Validation = responseExcel.Validation;
-                        response.ValidationError = responseExcel.ValidationError;
-                        response.ExcelValidationError = responseExcel.ExcelValidationError;
+                            response.ExcelValidationError = responseExcel.ExcelValidationError;
+                            response.SkipedRow = responseExcel.SkipedRow;
+                            response.Validation = responseExcel.Validation;
+                            response.ValidationError = responseExcel.ValidationError;
+                            response.ExcelValidationError = responseExcel.ExcelValidationError;
+                        }
+                        response.Status = true;
                     }
-                    response.Status = true;
+                }
+                else
+                {
+                    response.ReturnMessage = "Please Upload xlsx, xls and csv format File only";
+                    response.Status = false;
                 }
             }
-            else
+            catch (Exception)
             {
-                response.ReturnMessage = "Please Upload xlsx, xls and csv format File only";
-                response.Status = false;
+                throw;
+            }
+            finally
+            {
+                DeleteFile(path);
             }
             return response;
         }
@@ -293,6 +305,13 @@ namespace Library.Implementation
             return imageFolder + imageName;
         }
 
+        public void DeleteFile(string pdfFile)
+        {
+            if (File.Exists(pdfFile))
+            {
+                File.Delete(pdfFile);
+            }
+        }
 
         public int[] InsertBulkEmployeeData(List<ManageEmployeeListViewModel> model)
         {

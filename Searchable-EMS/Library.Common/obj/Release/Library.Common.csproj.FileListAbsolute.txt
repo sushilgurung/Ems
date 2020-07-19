@@ -43,3 +43,4 @@ D:\Project\EmployeeManagement\Ems\Searchable-EMS\Library.Common\obj\Release\Libr
 D:\Project\EmployeeManagement\Ems\Searchable-EMS\Library.Common\obj\Release\Library.Common.csproj.CopyComplete
 D:\Project\EmployeeManagement\Ems\Searchable-EMS\Library.Common\obj\Release\Library.Common.dll
 D:\Project\EmployeeManagement\Ems\Searchable-EMS\Library.Common\obj\Release\Library.Common.pdb
+D:\Project\EmployeeManagement\Ems\Searchable-EMS\Library.Common\obj\Release\Library.Common.csprojAssemblyReference.cache
